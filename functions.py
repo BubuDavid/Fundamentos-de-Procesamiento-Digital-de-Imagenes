@@ -118,6 +118,15 @@ def show_histograms(imgs, bin_value = 20, colors = [None, "g"], titles = ["Norma
 			hists.append(hist)
 	return hists, bins
 
+###### Transformaciones generales sobre imágenes ######
+# Creditos: http://learnwebgl.brown37.net/08_projections/projections_mapping.html
+def img_scale(img, minf, maxf):
+    a, b = np.min(img), np.max(img)
+    scale = (maxf - minf)/(b - a)
+    offset = -a*scale + minf
+    rescaled = img*scale + offset
+    return rescaled
+
 ###### Transformaciones de intensidades de imágenes ######
 
 # Binarize images
