@@ -3,6 +3,8 @@
 import cv2 # Para manejar imágenes
 import matplotlib.pyplot as plt # Para visualizar las imágenes (Se puede hacer de otra manera con una librería de google pero meh, este está bueno)
 import numpy as np # Para operar matrices de manera sencilla
+from scipy.ndimage import correlate, convolve
+
 
 ##### Operaciones iniciales con imágenes (Leer, mostrar, mostrar histogramas, etc.) #####
 # Desplegar histogramas
@@ -200,3 +202,28 @@ def equalizeHist(img):
 		equ_img: Imagen Ecualizada
 	"""
 	return cv2.equalizeHist(img)
+
+###### fspecials ######
+# Necesito el fspecial gaussian y laplacian
+def fspecial_gauss(kernel_shape=(3,3), sigma=0.5):
+    m,n = [(ss-1.)/2. for ss in kernel_shape]
+    y,x = np.ogrid[-m:m+1,-n:n+1]
+    h = np.exp( -(x*x + y*y) / (2.*sigma*sigma) )
+    h[ h < np.finfo(h.dtype).eps*h.max() ] = 0
+    sumh = h.sum()
+    if sumh != 0:
+        h /= sumh
+    return h
+
+def fspecial_laplacian(alpha = 1/5):
+    alpha = max(0,min(alpha,1))
+    h1 = alpha/(alpha+1)
+    h2 = (1-alpha)/(alpha+1)
+    h = np.array([[h1, h2, h1], [h2, -4/(alpha + 1), h2], [h1, h2, h1]])
+    return h
+
+
+def fspecial_average(shape):
+	h = np.ones(shape)/np.prod(shape)
+
+	return h
