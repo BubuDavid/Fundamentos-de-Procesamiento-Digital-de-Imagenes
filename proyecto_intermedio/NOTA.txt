@@ -1,0 +1,2 @@
+NOTA: El código está en dos tipos de archivos diferentes, si por alguna razón no puede abrir ninguno, le invitamos a que vea el código original en el siguiente link:
+https://colab.research.google.com/drive/1PkG5bumzrGjhSmWLMduk5xUQzmxjUUUE?usp=sharing
